@@ -1,9 +1,10 @@
-wizball;1,load&n^320,done
-720;1,load&n^23,&s8run&n^272,done
-skateord;1,load&n^33,&s8run&n^97, &n^214,done
-uridium;1,load&n^166,done
-outlaw;1,load&n^136,done
-impmiss;1,load&n^19,&s8run&n^254,done
-voltron;10,load&n^46,&s8run&n^48,done
-amdrum;0,&s8|tape&nload"*"&n &n^416,done
-brucelee;0,&s8|tape&nload"*"&n &n^221,done
+wizball;c64p;1,load&n^320,done
+720;c64p;1,load&n^23,&s8run&n^272,done
+skateord;c64p;1,load&n^33,&s8run&n^97, &n^214,done
+uridium;c64p;1,load&n^166,done
+outlaw;c64p;1,load&n^136,done
+impmiss;c64p;1,load&n^19,&s8run&n^254,done
+voltron;cpc6128;10,load&n^46,&s8run&n^48,done
+amdrum;cpc6128;0,&s8|tape&nload"*"&n &n^416,done
+brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,done
+gauntlet;zx81;4,j""&n^335,done

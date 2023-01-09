@@ -2,16 +2,17 @@
 these files should exist in `homepath` (see `mame.ini`) `tapeloader` directory
 
 ## syntax
+games are linked to machines to address duplicate names across softlists
 
 ### machine
 machine driver and slot device
 ```
-driver;tape:slot:device
+driver;:tape:slot:device
 ```
 
 ### tape_index
 ```
-game;idx,command^idx,command^idx,done
+game;machine;idx,command^idx,command^idx,done
 ```
 
 - `done`, can be anything it is the index that reinstates throttling, volume and reduces frameskip
@@ -26,7 +27,7 @@ if there is a loader or cracktro etc you can have it press space. how well it go
 ### examples
 wizball on c64
 ```
-wizball;1,load&n^320,done
+wizball;c64p;1,load&n^320,done
 ```
 - at index 1
  - disable throttling, sound and enable frameskip 
@@ -36,7 +37,7 @@ wizball;1,load&n^320,done
 
 bruce lee on cpc6128
 ```
-brucelee;0,&s8|tape&nload"*"&n &n^221,done
+brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,done
 ```
 - at index 0
  - disable throttling, sound and enable frameskip 

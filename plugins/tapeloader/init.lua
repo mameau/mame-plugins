@@ -58,13 +58,13 @@ function tapeloader.startplugin()
 		end
 	end
 
-	local function tapeloader_softwareinfo(s)
+	local function tapeloader_softwareinfo(s, m)
 		tl_software_data = tapeloader_getfile("tape_index.txt")
 		tl_playscript = {}
 		for line in tl_software_data:lines() do
-			game,script = string.match(line, "(.+);(.+)")
-			if game == s then
-				print("Found game entry: " .. game)
+			game,machine,script = string.match(line, "(.+);(.+);(.*)")
+			if game == s and machine == m then
+				print("Found game: \"" .. game .. "\" machine: \"" .. machine .. "\"")
 				entries = string.gmatch(script, "([^\\^]+)")
 				for entry in entries do
 					index,command = string.match(entry, "(.+),(.+)")
@@ -73,7 +73,8 @@ function tapeloader.startplugin()
 				return tl_playscript
 			end
 		end
-		return tl_playscript
+		print("No games/machine matches, you should add a profile")
+		os.exit()
 	end
 
 	-- register callback after reset
@@ -86,7 +87,7 @@ function tapeloader.startplugin()
 					d = tapeloader_machineinfo(emu.romname())
 					t = m.cassettes[d]
 					s = m.images[d].filename
-					st = tapeloader_softwareinfo(s)
+					st = tapeloader_softwareinfo(s, emu.romname())
 				end
 			end
 
