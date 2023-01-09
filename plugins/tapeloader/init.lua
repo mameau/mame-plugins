@@ -118,9 +118,7 @@ function tapeloader.startplugin()
 		function()
 			if done == true then return end
 			if st == false then return end
-
 			if t then
-
 				t_report = math.floor(t.position)
 
 				if t.is_playing and t.position > ( period - 1 ) then
@@ -134,23 +132,23 @@ function tapeloader.startplugin()
 					end
 					return
 				else
-						for index,v in pairs(st) do						
-							if t.position >= tonumber(index) and t.position <= tonumber(index)+1 then
-								--print(command, t.position, t.is_playing)
-								command = st[index]
-								if command ~= last_command then
-									if command ~= "done" then
-										print("Sending command: \"".. command .."\" (" .. t_report .. ") (" .. tonumber(index) .. "<->" .. tonumber(index)+1 .. ")")
-										last_command = command											
-										if command == "run" then
-											-- this is a hack to workaround the weird delay for input
-											command = "        " .. command
-										end
-										emu.keypost(command .. "\n")
+					for index,v in pairs(st) do						
+						if t.position >= tonumber(index) and t.position <= tonumber(index)+1 then
+							--print(command, t.position, t.is_playing)
+							command = st[index]
+							if command ~= last_command then
+								if command ~= "done" then
+									print("Sending command: \"".. command .."\" (" .. t_report .. ") (" .. tonumber(index) .. "<->" .. tonumber(index)+1 .. ")")
+									last_command = command											
+									if command == "run" then
+										-- this is a hack to workaround the weird delay for input
+										command = "        " .. command
 									end
+									emu.keypost(command .. "\n")
 								end
 							end
 						end
+					end
 				end
 				if not t.is_playing then t:play() end
 			end
