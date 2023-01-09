@@ -8,3 +8,4 @@ voltron;cpc6128;10,load&n^46,&s8run&n^48,done
 amdrum;cpc6128;0,&s8|tape&nload"*"&n &n^416,done
 brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,done
 gauntlet;zx81;4,j""&n^335,done
+buggyboy;c64p;1,load&n^19,&s8run&n^304,done

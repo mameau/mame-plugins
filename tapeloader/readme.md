@@ -59,7 +59,6 @@ mame sc3000h -w -nomax -cart basic3 -cass voltron -plugins -plugin tapeloader
 ```
 
 
-
 ### ~finding cassette devices~ this is now automated
 start MAME with the lua console
 ```
@@ -71,3 +70,13 @@ in the console list the devices and find the cassette device
 for i,v in pairs(manager.machine.cassettes) do print(i) end
 :tape:c1530:cassette
 ```
+
+### create a profile
+1. start the MAME machine with the cassette attached
+2. enter required commands to load the device
+3. press scroll-lock (uimodekey) to enable ui controls
+4. press f2 to begin playback
+5. track the tape index stop point* and keys used to continue
+6. enter details into tape_index.txt
+
+*when the tape stops while the machine is waiting for input check the tape control menu in the ui for the resting index
