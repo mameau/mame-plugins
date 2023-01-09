@@ -1,1 +1,6 @@
-wizball;320
+wizball;1,load^320,done
+720;1,load^23,run^272,done
+skateord;1,load^33,run^97, ^214,done
+uridium;1,load^166,done
+outlaw;1,load^136,done
+impmiss;1,load^19,run^254,done

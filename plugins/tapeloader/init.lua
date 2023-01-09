@@ -5,7 +5,7 @@ local exports = {
 	name = 'tapeloader',
 	version = '0.0.1',
 	description = 'disable throttling, enable frameskip until (n) tape index',
-	license = 'BSD-3-Clause',
+	license = 'GPLv3 or whatever',
 	author = { name = 'sairuk' } }
 
 local tapeloader = exports
@@ -13,12 +13,14 @@ local tapeloader = exports
 function tapeloader.startplugin()
 	local emu_start_time = 0
 	local period = 60
+	local st
 	local t
 	local m
-	local play = false
+	local done = false
 	local s = ""
 
-	-- basd on timecode plugin
+
+	-- based on timecode plugin but handles env vars in paths
 	local function get_settings_path()
 		local path = manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/tapeloader'
 		-- check if we have env vars in path (e.g. starting with $)
@@ -58,15 +60,21 @@ function tapeloader.startplugin()
 
 	local function tapeloader_softwareinfo(s)
 		tl_software_data = tapeloader_getfile("tape_index.txt")
+		tl_playscript = {}
 		for line in tl_software_data:lines() do
-			game,index = string.match(line, "(.+);(.+)")
+			game,script = string.match(line, "(.+);(.+)")
 			if game == s then
-				return tonumber(index)
+				print("Found game entry: " .. game)
+				entries = string.gmatch(script, "([^\\^]+)")
+				for entry in entries do
+					index,command = string.match(entry, "(.+),(.+)")
+					tl_playscript[index] = command
+				end
+				return tl_playscript
 			end
 		end
-		return false
+		return tl_playscript
 	end
-
 
 	-- register callback after reset
 	emu.register_start(
@@ -78,17 +86,29 @@ function tapeloader.startplugin()
 					d = tapeloader_machineinfo(emu.romname())
 					t = m.cassettes[d]
 					s = m.images[d].filename
-					t.speaker_state = true
-
-					-- speed up emulation for tape loading
-					m.video.throttled = false
-					m.video.frameskip = 10
-					mame_manager.ui.show_fps = true
-
+					st = tapeloader_softwareinfo(s)
 				end
 			end
-			period = tapeloader_softwareinfo(s) or period
-			print("Tape Index: " .. period)
+
+			-- lua, lua, lua, get last index because st[#st] doesn't work, pairs is also unordered
+			st_period = false
+			for i,v in pairs(st) do
+				if v == "done" then
+					st_period = i
+				end
+			end
+
+			period = st_period or period
+			print("Tape loaded target index is: " .. period)
+
+			if st then
+				-- speed up emulation for tape loading
+				m.video.throttled = false
+				m.video.frameskip = 10
+				mame_manager.ui.show_fps = true
+				manager.machine.sound.ui_mute = true
+			end
+
 		end)
 
 
@@ -96,25 +116,43 @@ function tapeloader.startplugin()
 	-- register callback at end of frame
 	emu.register_periodic(
 		function()
-			if t
-			then
-				if t.position == 0
-				then
-					emu.keypost("load\n")
-					play = true
-				end
+			if done == true then return end
+			if st == false then return end
 
-				if t.is_playing and t.position > ( period - 1 )
-				then
+			if t then
+
+				t_report = math.floor(t.position)
+
+				if t.is_playing and t.position > ( period - 1 ) then
 					m.video.throttled = true
 					m.video.frameskip = 0
 					mame_manager.ui.show_fps = false
+					manager.machine.sound.ui_mute = false
+					if not done then
+						print("Finished load (" .. t_report .. ")")
+						done = true
+					end
+					return
+				else
+						for index,v in pairs(st) do						
+							if t.position >= tonumber(index) and t.position <= tonumber(index)+1 then
+								--print(command, t.position, t.is_playing)
+								command = st[index]
+								if command ~= last_command then
+									if command ~= "done" then
+										print("Sending command: \"".. command .."\" (" .. t_report .. ") (" .. tonumber(index) .. "<->" .. tonumber(index)+1 .. ")")
+										last_command = command											
+										if command == "run" then
+											-- this is a hack to workaround the weird delay for input
+											command = "        " .. command
+										end
+										emu.keypost(command .. "\n")
+									end
+								end
+							end
+						end
 				end
-
-				if play
-				then
-					t:play()
-				end
+				if not t.is_playing then t:play() end
 			end
 		end)
 
