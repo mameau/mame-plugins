@@ -140,11 +140,12 @@ function tapeloader.startplugin()
 								if command ~= "done" then
 									print("Sending command: \"".. command .."\" (" .. t_report .. ") (" .. tonumber(index) .. "<->" .. tonumber(index)+1 .. ")")
 									last_command = command											
-									if command == "run" then
-										-- this is a hack to workaround the weird delay for input
-										command = "        " .. command
-									end
-									emu.keypost(command .. "\n")
+									-- push replacements
+									command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
+									command = command:gsub("%&s", " ")
+									command = command:gsub("%&n", "\n")
+									command = command:gsub("%&r", "\r")
+									emu.keypost(command)
 								end
 							end
 						end
