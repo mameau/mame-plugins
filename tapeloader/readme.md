@@ -4,12 +4,6 @@ these files should exist in `homepath` (see `mame.ini`) `tapeloader` directory
 ## syntax
 games are linked to machines to address duplicate names across softlists
 
-### machine
-machine driver and slot device
-```
-driver;:tape:slot:device
-```
-
 ### tape_index
 ```
 game;machine;idx,command^idx,command^idx,done
@@ -65,7 +59,8 @@ mame sc3000h -w -nomax -cart basic3 -cass voltron -plugins -plugin tapeloader
 ```
 
 
-### finding cassette devices
+
+### ~finding cassette devices~ this is now automated
 start MAME with the lua console
 ```
 mame c64 -console -w
@@ -73,10 +68,6 @@ mame c64 -console -w
 
 in the console list the devices and find the cassette device
 ```
-for i,v in pairs(manager.machine.devices) do print(i) end
-
-....
+for i,v in pairs(manager.machine.cassettes) do print(i) end
 :tape:c1530:cassette
-....
-
 ```

@@ -14,6 +14,7 @@ function tapeloader.startplugin()
 	local emu_start_time = 0
 	local period = 60
 	local st
+	local d
 	local t
 	local m
 	local done = false
@@ -48,16 +49,6 @@ function tapeloader.startplugin()
 		return io.open(path .. '/' .. f, "r")
 	end
 
-	local function tapeloader_machineinfo(tl_m)
-		tl_machine_data = tapeloader_getfile("machine.txt")
-		for line in tl_machine_data:lines() do
-			machine,device = string.match(line, "(.+);(.+)")
-			if machine == tl_m then
-				return device
-			end
-		end
-	end
-
 	local function tapeloader_softwareinfo(s, m)
 		tl_software_data = tapeloader_getfile("tape_index.txt")
 		tl_playscript = {}
@@ -82,9 +73,21 @@ function tapeloader.startplugin()
 		function()
 			if emu.romname() ~= '___empty' then
 				if emu.softname() ~= '___empty' then
-					--emu_start_time = emu.time()
 					m = manager.machine
-					d = tapeloader_machineinfo(emu.romname())
+					-- return 1st cassette device
+					for i,v in pairs(m.cassettes) 
+					do 
+						print("Tape device: " .. i)
+						d = i
+						break
+					end
+
+					if d == nil 
+					then
+						print("Could not determine cassette device, exiting")
+						os.exit()
+					end
+
 					t = m.cassettes[d]
 					s = m.images[d].filename
 					st = tapeloader_softwareinfo(s, emu.romname())

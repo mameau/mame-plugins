@@ -1,5 +1,0 @@
-c64;:tape:c1530:cassette
-c64p;:tape:c1530:cassette
-sc3000h;:sgexp:sk1100:cassette
-cpc6128;:cassette
-zx81;:cassette
