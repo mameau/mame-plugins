@@ -6,22 +6,25 @@ games are linked to machines to address duplicate names across softlists
 
 ### tape_index
 ```
-game;machine;idx,command^idx,command^idx,done
+game;machine;idx,command^idx,command^idx,&stop
 ```
 
-- `done`, can be anything it is the index that reinstates throttling, volume and reduces frameskip
+- `&start` or `&stop`, can be used to start/stop throttling, volume, frameskip
 - `&n` or `&r`, will be substituted for the `\n` & `\r` respectvely
 - `&s` will be substituted with a space
 - `&s8` is a special case that will be replaced with 8 spaces, its a hack for slow input
+- `&pos` will move the to the position (+/- the internal counter increment)
+- `&fwd` tape direction forward
+- `&rev` tape direction backward
 
-the rest are system commands, so on the c64 `load` or `run` at the documented tape indexes
+the rest are system commands, so on the c64 input `load` or `run` at the documented tape indexes
 
 if there is a loader or cracktro etc you can have it press space. how well it goes with trainers is unknown
 
 ### examples
 wizball on c64
 ```
-wizball;c64p;1,load&n^320,done
+wizball;c64p;1,load&n^320,&stop
 ```
 - at index 1
  - disable throttling, sound and enable frameskip 
@@ -31,7 +34,7 @@ wizball;c64p;1,load&n^320,done
 
 bruce lee on cpc6128
 ```
-brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,done
+brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,&stop
 ```
 - at index 0
  - disable throttling, sound and enable frameskip 
@@ -80,3 +83,9 @@ for i,v in pairs(manager.machine.cassettes) do print(i) end
 6. enter details into tape_index.txt
 
 *when the tape stops while the machine is waiting for input check the tape control menu in the ui for the resting index
+
+
+#### limitations/todo
+* no joystick/modifier key support yet
+* seek seems to be influenced by some internal increment, so need to keep that in mind id rewinding
+* ???
