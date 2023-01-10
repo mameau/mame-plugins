@@ -11,9 +11,9 @@ skateord;c64p;0,&start^1,load&n^33,&s8run&n^97,&s&n^100,&start^214,&stop^215,&po
 uridium;c64p;0,&start^1,load&n^166,&stop
 outlaw;c64p;0,&start^1,load&n^136,&stop
 impmiss;c64p;0,&start^1,load&n^19,&s8run&n^254,&stop
-voltron;cpc6128;0,&start^10,load&n^46,&s8run&n^48,&stop
-amdrum;cpc6128;0,&start^0,&s8|tape&nload"*"&n &n^416,&stop
-brucelee;cpc6128;0,&start^0,&s8|tape&nload"*"&n &n^221,&stop
+voltron;sc3000h;0,&start^10,load&n^46,&s8run&n^48,&stop
+amdrum;cpc6128;0,&s8|tape&nload"*"&n &n^1,&start^416,&stop
+brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^1,&start^221,&stop
 gauntlet;zx81;0,&start^4,j""&n^335,&stop
 buggyboy;c64p;0,&start^1,load&n^19,&s8run&n^304,&stop
 Turrican (1990)(Rainbow Arts);c64p;0,&start^1,load&n^30,&s8run&n^100,&stop^101,&start^148,&stop

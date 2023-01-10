@@ -24,7 +24,7 @@ if there is a loader or cracktro etc you can have it press space. how well it go
 ### examples
 wizball on c64
 ```
-wizball;c64p;1,load&n^320,&stop
+wizball;c64p;0,&start^1,load&n^320,&stop
 ```
 - at index 1
  - disable throttling, sound and enable frameskip 
@@ -34,7 +34,7 @@ wizball;c64p;1,load&n^320,&stop
 
 bruce lee on cpc6128
 ```
-brucelee;cpc6128;0,&s8|tape&nload"*"&n &n^221,&stop
+brucelee;cpc6128;0,&start&s8|tape&nload"*"&n &n^221,&stop
 ```
 - at index 0
  - disable throttling, sound and enable frameskip 
