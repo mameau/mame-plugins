@@ -199,24 +199,22 @@ function tapeloader.startplugin()
 
 							-- padding, this is a hack to workaround slow for input
 							local space_index = string.match(command, kw_space .. "([0-9]+)")
-							t_space = {}
 							if tonumber(space_index) ~= nil then
 								print("Padding with ".. space_index .. " spaces")
-								for i=1,space_index,1 do
-									table.insert(t_space," ")
-								end
-								command = command:gsub("%" .. kw_space .. "([0-9]+)", table.concat(t_space))
+								command = command:gsub("%" .. kw_space .. "([0-9]+)", string.rep(" ",space_index))
 							end
 
 							-- send command
-							print("Sending command: \"".. command .."\" (" .. t_report .. ")")
+							if string.len(command) > 0 then 
+								print("Sending command: \"".. command .."\" (" .. t_report .. ")")
 
-							--command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
-							command = command:gsub("%" .. kw_space, " ")
-							command = command:gsub("%" .. kw_lf, "\n")
-							command = command:gsub("%" .. kw_cr, "\r")
+								--command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
+								command = command:gsub("%" .. kw_space, " ")
+								command = command:gsub("%" .. kw_lf, "\n")
+								command = command:gsub("%" .. kw_cr, "\r")
 
-							emu.keypost(command)
+								emu.keypost(command) 
+							end
 						end
 					end
 				end
