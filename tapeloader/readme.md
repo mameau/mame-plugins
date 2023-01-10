@@ -85,7 +85,9 @@ for i,v in pairs(manager.machine.cassettes) do print(i) end
 *when the tape stops while the machine is waiting for input check the tape control menu in the ui for the resting index
 
 
-#### limitations/todo
+#### limitations/todo/notes
 * no joystick/modifier key support yet
 * seek seems to be influenced by some internal increment, so need to keep that in mind id rewinding
+* can only use a keyword once per block i.e this is a block: ^___^
+* `&start` needs to be called at index 0 for devices that don't engage the cassette motor automatically
 * ???

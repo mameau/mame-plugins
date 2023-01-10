@@ -155,7 +155,6 @@ function tapeloader.startplugin()
 			if t then
 				for index,v in pairs(st) do
 					t_report = math.floor(t.position)
-					send_command = true
 					if t.position >= tonumber(index) and t.position <= tonumber(index)+1 then
 						--print(command, t.position, t.is_playing)
 						command = st[index]
@@ -167,47 +166,46 @@ function tapeloader.startplugin()
 							if tonumber(pos_index) ~= nil then
 								print("Moving to index: " .. pos_index )
 								t:seek(pos_index,"set")
-								send_command = false
+								command = command:gsub("%" .. kw_pos .. "([0-9]+)", "")
 							end
 
 							-- forward
 							if string.match(command, "(" .. kw_fwd .. ")") then
 								print("Tape direction: forward")
 								t:forward()
-								send_command = false
+								command = command:gsub("%" .. kw_fwd, "")
 							end
 
 							-- rewind
 							if string.match(command, "(" .. kw_rev .. ")") then
 								print("Tape direction: reverse")
 								t:reverse()
-								send_command = false
+								command = command:gsub("%" .. kw_rev, "")
 							end
 
 							-- start
 							local start_command = string.match(command, "(" .. kw_start .. ")")
 							if start_command ~= nil then
 								if not fastloading then start_fastload() end
-								send_command = false
+								command = command:gsub("%" .. kw_start, "")
 							end
 
 							-- stop
 							local stop_command = string.match(command, "(" .. kw_stop .. ")")
 							if stop_command ~= nil then
 								if fastloading then stop_fastload() end
-								send_command = false
+								command = command:gsub("%" .. kw_stop, "")
 							end
 
 							-- send command
-							if send_command == true then
-								print("Sending command: \"".. command .."\" (" .. t_report .. ")")
+							print("Sending command: \"".. command .."\" (" .. t_report .. ")")
 
-								command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
-								command = command:gsub("%&s", " ")
-								command = command:gsub("%&n", "\n")
-								command = command:gsub("%&r", "\r")
+							command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
+							command = command:gsub("%&s", " ")
+							command = command:gsub("%&n", "\n")
+							command = command:gsub("%&r", "\r")
 
-								emu.keypost(command)
+							emu.keypost(command)
 							end								
 						end
 					end
