@@ -12,7 +12,7 @@ game;machine;idx,command^idx,command^idx,&stop
 - `&start` or `&stop`, can be used to start/stop throttling, volume, frameskip
 - `&n` or `&r`, will be substituted for the `\n` & `\r` respectvely
 - `&s` will be substituted with a space
-- `&s8` is a special case that will be replaced with 8 spaces, its a hack for slow input
+- `&s(n)` is a special case that will be replaced with (n) spaces, padding for slow input (e.g &s8 equals 8 spaces)
 - `&pos` will move the to the position (+/- the internal counter increment)
 - `&fwd` tape direction forward
 - `&rev` tape direction backward
