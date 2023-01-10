@@ -106,6 +106,7 @@ function tapeloader.startplugin()
 		mame_manager.ui.show_fps = true
 		manager.machine.sound.ui_mute = true
 		fastloading = true
+		if not t.is_playing then t:play() end
 	end
 
 	local function stop_fastload()
@@ -115,6 +116,7 @@ function tapeloader.startplugin()
 		mame_manager.ui.show_fps = false
 		manager.machine.sound.ui_mute = false
 		fastloading = false
+		--t:stop()
 	end
 
 	-- register callback after reset
@@ -210,7 +212,6 @@ function tapeloader.startplugin()
 						end
 					end
 				end
-				if not t.is_playing then t:play() end
 			end
 		end)
 
