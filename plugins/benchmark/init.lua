@@ -1,6 +1,7 @@
 -- license:BSD-3-Clause
 -- copyright-holders:sairuk
 -- https://github.com/mamedev/mame/blob/master/src/frontend/mame/luaengine.cpp
+-- based on MAME video.cpp implementation 
 
 local exports = {
 	name = 'benchmark',
