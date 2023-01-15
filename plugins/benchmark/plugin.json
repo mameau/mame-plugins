@@ -1,0 +1,10 @@
+{
+	"plugin": {
+		"name": "benchmark",
+		"description": "Game play benchmarks",
+		"version": "0.0.1",
+		"author": "sairuk",
+		"type": "plugin",
+		"start": "false"
+	}
+}
