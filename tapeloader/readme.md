@@ -4,6 +4,11 @@ these files should exist in `homepath` (see `mame.ini`) `tapeloader` directory
 ## syntax
 games are linked to machines to address duplicate names across softlists
 
+### concepts
+-`n` n as tape index number
+-`^` start new block of commands
+-`&` special command intepreted by the plugin
+
 ### tape_index
 ```
 game;machine;idx,command^idx,command^idx,&stop
