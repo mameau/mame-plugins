@@ -5,9 +5,9 @@ these files should exist in `homepath` (see `mame.ini`) `tapeloader` directory
 games are linked to machines to address duplicate names across softlists
 
 ### concepts
--`n` n as tape index number
--`^` start new block of commands
--`&` special command intepreted by the plugin
+- `n` n as tape index number
+- `^` start new block of commands
+- `&` special command intepreted by the plugin
 
 ### tape_index
 ```
