@@ -84,7 +84,7 @@ function tapeloader.startplugin()
 			if string.match(line, "^[^#].*") then
 				game,machine,script = string.match(line, "(.+);(.+);(.*)")
 				if game == s and machine == m then
-					print("Found game: \"" .. game .. "\" machine: \"" .. machine .. "\"")
+					emu.print_info("Found game: \"" .. game .. "\" machine: \"" .. machine .. "\"")
 					entries = string.gmatch(script, "([^\\^]+)")
 					for entry in entries do
 						index,command = string.match(entry, "(.+),(.+)")
@@ -94,12 +94,12 @@ function tapeloader.startplugin()
 				end
 			end
 		end
-		print("No games/machine matches, you should add a profile")
+		emu.print_error("No games/machine matches, you should add a profile")
 		os.exit()
 	end
 
 	local function start_fastload()
-		print("Starting fastload (" .. t_report .. ")")
+		emu.print_info("Starting fastload (" .. t_report .. ")")
 		-- speed up emulation for tape loading
 		m.video.throttled = false
 		m.video.frameskip = 10
@@ -110,7 +110,7 @@ function tapeloader.startplugin()
 	end
 
 	local function stop_fastload()
-		print("Stopping fastload (" .. t_report .. ")")
+		emu.print_info("Stopping fastload (" .. t_report .. ")")
 		m.video.throttled = true
 		m.video.frameskip = 0
 		mame_manager.ui.show_fps = false
@@ -127,13 +127,13 @@ function tapeloader.startplugin()
 					m = manager.machine
 					-- return 1st cassette device
 					for i,v in pairs(m.cassettes) do 
-						print("Tape device: " .. i)
+						emu.print_info("Tape device: " .. i)
 						d = i
 						break
 					end
 
 					if d == nil then
-						print("Could not determine cassette device, exiting")
+						emu.print_error("Could not determine cassette device, exiting")
 						os.exit()
 					end
 
@@ -141,7 +141,7 @@ function tapeloader.startplugin()
 					s = filename(m.images[d].filename)
 					st = tapeloader_softwareinfo(s, emu.romname())
 					if st == nil then 
-						print("Failed to load tape index data")
+						emu.print_error("Failed to load tape index data")
 						os.exit()
 					end
 				end
@@ -161,24 +161,31 @@ function tapeloader.startplugin()
 						if command ~= last_command then
 							last_command = command
 
-							-- position
+							-- stop
+							local stop_command = string.match(command, "(" .. kw_stop .. ")")
+							if stop_command ~= nil then
+								if fastloading then stop_fastload() end
+								command = command:gsub("%" .. kw_stop, "")
+							end
+
+              -- position
 							local pos_index = string.match(command, kw_pos .. "([0-9]+)")
 							if tonumber(pos_index) ~= nil then
-								print("Moving to index: " .. pos_index )
+								emu.print_info("Moving to index: " .. pos_index )
 								t:seek(pos_index,"set")
 								command = command:gsub("%" .. kw_pos .. "([0-9]+)", "")
 							end
 
 							-- forward
 							if string.match(command, "(" .. kw_fwd .. ")") then
-								print("Tape direction: forward")
+								emu.print_info("Tape direction: forward")
 								t:forward()
 								command = command:gsub("%" .. kw_fwd, "")
 							end
 
 							-- rewind
 							if string.match(command, "(" .. kw_rev .. ")") then
-								print("Tape direction: reverse")
+								emu.print_info("Tape direction: reverse")
 								t:reverse()
 								command = command:gsub("%" .. kw_rev, "")
 							end
@@ -190,23 +197,16 @@ function tapeloader.startplugin()
 								command = command:gsub("%" .. kw_start, "")
 							end
 
-							-- stop
-							local stop_command = string.match(command, "(" .. kw_stop .. ")")
-							if stop_command ~= nil then
-								if fastloading then stop_fastload() end
-								command = command:gsub("%" .. kw_stop, "")
-							end
-
 							-- padding, this is a hack to workaround slow for input
 							local space_index = string.match(command, kw_space .. "([0-9]+)")
 							if tonumber(space_index) ~= nil then
-								print("Padding with ".. space_index .. " spaces")
+								emu.print_info("Padding with ".. space_index .. " spaces")
 								command = command:gsub("%" .. kw_space .. "([0-9]+)", string.rep(" ",space_index))
 							end
 
 							-- send command
 							if string.len(command) > 0 then 
-								print("Sending command: \"".. command .."\" (" .. t_report .. ")")
+								emu.print_info("Sending command: \"".. command .."\" (" .. t_report .. ")")
 
 								--command = command:gsub("%&s8", "        ") -- this is a hack to workaround the weird delay for input
 								command = command:gsub("%" .. kw_space, " ")
