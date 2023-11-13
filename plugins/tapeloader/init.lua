@@ -236,7 +236,6 @@ function tapeloader.startplugin()
 				end
 			end
 		end)
-
 end
 
 return exports
