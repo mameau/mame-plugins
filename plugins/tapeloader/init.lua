@@ -9,6 +9,7 @@ local exports = {
 	author = { name = 'sairuk' } }
 
 local tapeloader = exports
+local reset_subscription
 
 function tapeloader.startplugin()
 	local period = 100
@@ -18,6 +19,7 @@ function tapeloader.startplugin()
 	local m
 	local fastloading = false
 	local s = ""
+	local stop = false
 
 	-- keywords
 	local kw_stop = "&stop"
@@ -74,28 +76,40 @@ function tapeloader.startplugin()
 		if not attr then
 			lfs.mkdir(path)
 		end
-		return io.open(path .. '/' .. f, "r")
+
+		if not lfs.attributes(path .. '/' .. f) then
+			emu.print_error("Could not find an index file to match " .. f)
+			stop = true
+			return stop
+		else
+			return io.open(path .. '/' .. f, "r")
+		end
 	end
 
 	local function tapeloader_softwareinfo(s, m)
-		tl_software_data = tapeloader_getfile("tape_index.txt")
+		-- deprecated tape_index.txt
+		--tl_software_data = tapeloader_getfile("tape_index.txt")
+		tl_software_data_file = m .. "/" .. s .. "_idx.txt"
+		tl_software_data = tapeloader_getfile(tl_software_data_file)
 		tl_playscript = {}
-		for line in tl_software_data:lines() do
-			if string.match(line, "^[^#].*") then
-				game,machine,script = string.match(line, "(.+);(.+);(.*)")
-				if game == s and machine == m then
-					emu.print_info("Found game: \"" .. game .. "\" machine: \"" .. machine .. "\"")
-					entries = string.gmatch(script, "([^\\^]+)")
-					for entry in entries do
-						index,command = string.match(entry, "(.+),(.+)")
-						tl_playscript[index] = command
+		if not stop then
+			for line in tl_software_data:lines() do
+				if string.match(line, "^[^#].*") then
+					game,machine,script = string.match(line, "(.+);(.+);(.*)")
+					if game == s and machine == m then
+						emu.print_info("Found game: \"" .. game .. "\" machine: \"" .. machine .. "\"")
+						entries = string.gmatch(script, "([^\\^]+)")
+						for entry in entries do
+							index,command = string.match(entry, "(.+),(.+)")
+							tl_playscript[index] = command
+						end
+						return tl_playscript
 					end
-					return tl_playscript
 				end
 			end
+			emu.print_error("No games/machine matches, you should add a profile")
+			stop = true
 		end
-		emu.print_error("No games/machine matches, you should add a profile")
-		os.exit()
 	end
 
 	local function start_fastload()
@@ -120,8 +134,9 @@ function tapeloader.startplugin()
 	end
 
 	-- register callback after reset
-	emu.register_start(
+	reset_subscription = emu.add_machine_reset_notifier(
 		function()
+			if stop then return end
 			if emu.romname() ~= '___empty' then
 				if emu.softname() ~= '___empty' then
 					m = manager.machine
@@ -134,7 +149,7 @@ function tapeloader.startplugin()
 
 					if d == nil then
 						emu.print_error("Could not determine cassette device, exiting")
-						os.exit()
+						stop = true
 					end
 
 					t = m.cassettes[d]
@@ -142,7 +157,7 @@ function tapeloader.startplugin()
 					st = tapeloader_softwareinfo(s, emu.romname())
 					if st == nil then 
 						emu.print_error("Failed to load tape index data")
-						os.exit()
+						stop = true
 					end
 				end
 			end
@@ -151,6 +166,7 @@ function tapeloader.startplugin()
 	-- register callback at end of frame
 	emu.register_periodic(
 		function()
+			if stop then return end
 			if st == false then return end
 			if t then
 				for index,v in pairs(st) do

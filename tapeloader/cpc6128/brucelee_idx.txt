@@ -1,0 +1,1 @@
+brucelee;cpc6128;0,&s8|tape&nload"*"&n&s&n&start^221,&stop

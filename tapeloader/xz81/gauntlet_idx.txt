@@ -1,0 +1,1 @@
+gauntlet;zx81;0,&start^4,j""&n^335,&stop

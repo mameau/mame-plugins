@@ -1,0 +1,8 @@
+# skateord fastloaded
+#skateord;c64p;0,&start^1,load&n^33,&s8run&n^97,&s&n^214,&stop
+# skateord events fastloaded
+skateord;c64p;0,&start^1,load&n^33,&s8run&n^97,&s&n^204,&stop^206,&start^214,&stop^215,&start^360,&stop^362,&pos98&start^503,&stop^504,&pos98&start^711,&stop^712,&pos98&start^902,&stop^903,&pos98&start^1052,&stop
+# skateord fast forward to Joust event
+#skateord;c64p;0,&start^1,load&n^33,&s8run&n^97,&s&n^214,&stop^215,&pos900^900,&start^1052,&stop
+# skateord fast forward to Joust event rewind to 99 ready for exit
+#skateord;c64p;0,&start^1,load&n^33,&s8run&n^97,&s&n^100,&start^214,&stop^215,&pos900^900,&start^1052,&pos95&stop

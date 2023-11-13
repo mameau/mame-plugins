@@ -1,0 +1,1 @@
+voltron;sc3000h;0,&start^10,load&n^46,&s8run&n^48,&stop

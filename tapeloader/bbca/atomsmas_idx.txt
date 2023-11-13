@@ -1,0 +1,1 @@
+atomsmas;bbca;0,&s*LOAD&nRUN&n^1,&start^46,&stop^47,&start^75,&stop

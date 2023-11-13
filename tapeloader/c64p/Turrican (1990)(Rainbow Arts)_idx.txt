@@ -1,0 +1,1 @@
+Turrican (1990)(Rainbow Arts);c64p;0,&start^1,load&n^30,&s8run&n^100,&stop^101,&start^148,&stop

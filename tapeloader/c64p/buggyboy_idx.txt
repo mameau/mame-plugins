@@ -1,0 +1,1 @@
+buggyboy;c64p;0,&start^1,load&n^19,&s8run&n^304,&stop
