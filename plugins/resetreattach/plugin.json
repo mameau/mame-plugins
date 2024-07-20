@@ -1,0 +1,10 @@
+{
+        "plugin": {
+                "name": "resetreattach",
+                "description": "Re-attach media on reset",
+                "version": "0.0.1",
+                "author": "sairuk",
+                "type": "plugin",
+                "start": "false"
+        }
+}
