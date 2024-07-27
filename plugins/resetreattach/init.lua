@@ -45,7 +45,7 @@ function resetreattach.startplugin()
   -- override soft reset and force a hard reset
   local function hreset()
       emu.print_info(exports["name"] .. ": Hard Reset from plugin")
-      -- manager.machine:hard_reset()
+      manager.machine:hard_reset()
   end
 
   local function deviceExempt(d)
