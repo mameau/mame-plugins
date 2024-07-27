@@ -44,8 +44,10 @@ function resetreattach.startplugin()
 
   -- override soft reset and force a hard reset
   local function hreset()
+    if not manager.ui.ui_active then
       emu.print_info(exports["name"] .. ": Hard Reset from plugin")
       manager.machine:hard_reset()
+    end
   end
 
   local function deviceExempt(d)
@@ -77,7 +79,7 @@ function resetreattach.startplugin()
     --   return
     -- end
  
-    hreset()
+    -- hreset()
 
     if emu.softname() ~= '___empty' or emu.softname ~= resoft then
       for name, image in pairsByKeys(manager.machine.images) do
