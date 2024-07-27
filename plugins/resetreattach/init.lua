@@ -51,7 +51,8 @@ function resetreattach.startplugin()
   end
 
   local function deviceExempt(d)
-    for device in pairs(deviceException) do
+    for i, device in pairs(deviceException) do
+      emu.print_info(device)
       if d == device then
         return true
       end

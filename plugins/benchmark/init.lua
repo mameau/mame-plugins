@@ -26,6 +26,33 @@ function benchmark.startplugin()
 	local m_overall_real_ticks = 0
 	local tps = 0
 
+	-- based on timecode plugin but handles env vars in paths
+	local function get_settings_path()
+		local path = manager.machine.options.entries.homepath:value():match('([^;]+)') .. '/tapeloader'
+		-- check if we have env vars in path (e.g. starting with $)
+		if string.match(path,'$') then
+			local t_env={}
+			-- split the path
+			for str in string.gmatch(path, "([^/\\]+)") do
+				if str:sub(1,1) == '$' then
+					str = os.getenv(str:sub(2))
+				end
+                	table.insert(t_env, '/' .. str)
+	        	end
+			-- rebuild the path
+			return table.concat(t_env,"/")
+		end
+		return path
+	end
+
+	-- create data path
+	local function getpath(f)
+		local path = get_settings_path()
+		local attr = lfs.attributes(path)
+		if not attr then lfs.mkdir(path) end
+		return io.open(path .. '/' .. f, "w")
+	end
+
 	-- register callback after reset
 	emu.register_start(
 		function()
@@ -56,14 +83,15 @@ function benchmark.startplugin()
                                 local current_real_time = manager.machine.time.seconds + realtime / tps
                                 local current_emu_time = emutime
 
-				local out_string = string.format(_p('%s,%s,%.2f%%,%s'),
+				local out_string = string.format(_p('[Plugin: %s] %s,%s,%.2f%%,%s'),
+          name,
 					emu_app_version,
 					emu_romname,
 					100 * m_speed_percent,
 					manager.machine.time.seconds
 				)
 
-				print(out_string)
+				emu.print_info(out_string)
 			end
 
 		end)
@@ -72,9 +100,9 @@ function benchmark.startplugin()
 	emu.register_stop(
 		function()
 			if emu.romname() ~= '___empty' then
-				local m_overall_real_seconds = manager.machine.time.seconds
-				local final_real_time = m_overall_real_seconds + m_overall_real_ticks / tps
-				local avg_speed = string.format(_p("Average speed:  %.2f%% (%d seconds)"),final_real_time,manager.machine.time.seconds)
+				--local m_overall_real_seconds = manager.machine.time.seconds
+				--local final_real_time = m_overall_real_seconds + m_overall_real_ticks / tps
+				--local avg_speed = string.format(_p("Average speed:  %.2f%% (%d seconds)"),final_real_time,manager.machine.time.seconds)
 				--print(avg_speed)
 
 				end_time = os.time()
