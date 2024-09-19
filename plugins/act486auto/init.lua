@@ -16,30 +16,34 @@ local reset_subscription
 local frame_subscription
 
 -- https://www.reddit.com/r/MAME/comments/1aw9h7c/comment/ksow3uj/
-function press(port,field)
+local function press(port,field)
   manager.machine.ioport.ports[port].fields[field]:set_value(1)
 end
 
-function release(port,field)
+local function release(port,field)
   manager.machine.ioport.ports[port].fields[field]:clear_value()
 end
 
-function attach_soft(tag, software)
+local function attach_soft(tag, software)
   manager.machine.images[tag]:load_software(software)
 end
 
-function detach_soft(tag)
+local function detach_soft(tag)
   manager.machine.images[tag]:unload()
 end
 
-function nothrottle()
+local function nothrottle()
   manager.machine.video.throttled = false
 	manager.machine.video.frameskip = 10
 end
 
-function throttle()
+local function throttle()
   manager.machine.video.throttled = true
 	manager.machine.video.frameskip = 0
+end
+
+local function exit()
+  manager.machine:exit()
 end
 
 function act486auto.startplugin()
@@ -55,17 +59,34 @@ function act486auto.startplugin()
     if emu.romname() ~= '___empty' then
       if emu.softname() ~= '___empty' then
 
-        require('act486auto/scripts/' .. emu.romname())
-        require('act486auto/scripts/' .. emu.softname())
+        -- hackeryd00
+        local machscript = 'act486auto/scripts/' .. emu.romname()
+        local machfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. machscript .. ".lua"
+        local machtest = io.open(os.getenv("HOME") .. "/.mame/" .. machfile, "r")
+        -- hackeryd00x2
+        local softscript = 'act486auto/scripts/' .. emu.softname()
+        local softfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. softscript .. ".lua"
+        local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
 
         -- machine script
-        for k,v in pairs(t_machine) do
-          table.insert(t, v)
+        if machtest then
+          io.close(machtest)
+          require(machscript)
+          for k,v in pairs(t_machine) do
+            table.insert(t, v)
+          end
+        else
+          print("Unsupported machine")
+          exit()
         end
 
         -- software script
-        for k,v in pairs(t_software) do
-          table.insert(t, v)
+        if softtest then
+          io.close(softtest)
+          require(softscript)
+          for k,v in pairs(t_software) do
+            table.insert(t, v)
+          end
         end
 
         nothrottle()
@@ -102,7 +123,7 @@ function act486auto.startplugin()
           elseif string.match(tfield, "throttle") then
             throttle()
           elseif string.match(tfield, "stop") then
-            manager.machine:exit()
+            exit()
           else
             port = portmap[tfield][1]
             field = portmap[tfield][2]
