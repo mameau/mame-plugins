@@ -1,6 +1,7 @@
 start = 900
 flop1 = ":board1:fdcsmc:fdc:0:35hd"
 hdd = ":board3:ide:ide:0:hdd:image"
+cdrom = ":board3:ide:ide:1:cdrom:image"
 
   -- offset, release delay, portmap, comment
 t_machine = {
@@ -12,9 +13,10 @@ t_machine = {
   { 100, 5, "PGUP", "Set HDD Type" },
   ---- Cylinders
   { 10, 5, "2", "" },
-  { 10, 5, "5", "" },
-  { 10, 5, "6", "" },
-  { 50, 5, "RIGHT" },
+  { 10, 5, "0", "" },
+  { 10, 5, "4", "" },
+  { 10, 5, "8", "" },
+  { 40, 5, "RIGHT" },
   ---- Heads
   { 10, 5, "1", "" },
   { 10, 5, "6", "" },
@@ -22,8 +24,8 @@ t_machine = {
   { 50, 5, "RIGHT", "" },
   { 50, 5, "RIGHT", "" },
   ---- Sectors
-  { 10, 5, "5", "" },
-  { 10, 5, "0", "" },
+  { 10, 5, "6", "" },
+  { 10, 5, "3", "" },
   -- Floppies
   { 10, 5, "DOWN", "Configure Floppy Drives" },
   ---- Drive A

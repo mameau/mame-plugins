@@ -114,12 +114,11 @@ function act486auto.startplugin()
         if frame == fstart then
           -- attach images
           if string.match(tfield, "fd0") then 
-              softimg = string.gsub(tfield, "fd0_(.+)", "%1")
-              if softimg == "eject" then
-                detach_soft(flop1)
-              else
-                attach_soft(flop1, software .. ":" .. softimg)
-              end
+            softimg = string.gsub(tfield, "fd0_(.+)", "%1")
+            if softimg == "eject" then detach_soft(flop1) else attach_soft(flop1, software .. ":" .. softimg) end
+          elseif string.match(tfield, "cd0") then
+            softimg = string.gsub(tfield, "cd0_(.+)", "%1")
+            if softimg == "eject" then detach_soft(cdrom) else attach_soft(cdrom, software .. ":" .. softimg) end
           elseif string.match(tfield, "throttle") then
             throttle()
           elseif string.match(tfield, "stop") then

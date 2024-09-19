@@ -1,6 +1,6 @@
 # act486auto
 
-offset (frame) based automation for MAME machines, it is all pretty rough and was built initially for use with at486 and ct486 machines and msdos622 as a demo, so CHS is hardcoded to a 100MB size.
+offset (frame) based automation for MAME machines, it is all pretty rough and was built initially for use with at486 and ct486 machines and msdos622 as a demo, so CHS is hardcoded to a 1G size.
 
 # setup
 in `scripts/`
@@ -17,10 +17,15 @@ offsets are offset from 0 based on a start delay per machine, `900` for at486 it
 * see `portmap.lua` for available key commands
 * `stop` and `throttle` are special keywords
 * `fd0_softlist_dev` will insert `flop(n)` into floppy drive 1
+* `cd0_softlist_dev` will insert `cdrom` into cdrom drive 1
 
 ## usage
-with a blank chd image of CHS `256,16,50` (100MB) install msdos622
+with a blank chd image of CHS `2048,16,63` (1G) install msdos622
 `mame -w at486 -nvram_directory /dev/null msdos622 -hard1 msdos622.chd -skip_gameinfo -ramsize 64M -plugins -plugin act486auto`
+
+with cdrom device
+`./mame -w at486 -nvram_directory /dev/null os2warp3 -hard1 test.chd -skip_gameinfo -ramsize 64M -board3:ide:ide:1 cdrom -cdrom os2warp3 -plugins -plugin act486auto`
+
 
 expect output on the cli based on your machine and software configurations
 ```
