@@ -40,3 +40,5 @@ luac.out
 *.hex
 
 plugins/*/console_history
+.fuse*
+test/

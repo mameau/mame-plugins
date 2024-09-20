@@ -10,7 +10,7 @@ t_machine = {
   -- Standard CMOS Setup
   { 100, 90, "ENTER", "Standard CMOS Setup" },
   -- 47 User Type HDD
-  { 100, 5, "PGUP", "Set HDD Type" },
+  { 100, 5, "import_dev_hdd_1G", "Import HDD Type" },
   ---- Cylinders
   { 10, 5, "2", "" },
   { 10, 5, "0", "" },
@@ -29,20 +29,17 @@ t_machine = {
   -- Floppies
   { 10, 5, "DOWN", "Configure Floppy Drives" },
   ---- Drive A
-  { 10, 5, "PGUP", "1.44M Drive" },
   { 10, 5, "PGUP", "" },
-  { 10, 5, "DOWN", "" },
+  { 10, 5, "import_dev_fd_144", "Import Floppy Drive" },
   ---- Drive B
-  { 10, 5, "PGUP", "1.44M Drive" },
   { 10, 5, "PGUP", "" },
-  { 10, 5, "DOWN", "" },
+  { 10, 5, "import_dev_fd_144", "Import Floppy Drive" },
   -- Exit Standard CMOS Setup
   { 10, 10, "ESC", "Exit Standard CMOS Setup" },
 
   -- Advanced CMOS Setup
   { 10, 5,  "DOWN", "" },
   { 20, 10, "ENTER", "Enter Advanced CMOS Setup" },
-  --
   { 10, 5,  "DOWN", "" },
   { 10, 5,  "DOWN", "" },
   { 10, 5,  "DOWN", "" },

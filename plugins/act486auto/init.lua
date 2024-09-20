@@ -89,6 +89,19 @@ function act486auto.startplugin()
           end
         end
 
+        -- preprocess imports
+        for tk, tv in pairs(t) do
+          tfield = tv[3]
+          if string.match(tfield, "import_") then
+            import = string.gsub(tfield, "import_(.+)", "%1")
+            require("act486auto/scripts/" .. import)
+            table.remove(t, tk)
+            for tdk, tdv in pairs(t_step) do
+              idx = tk + (tdk - 1)
+              table.insert(t, idx, tdv)
+            end
+          end
+        end
         nothrottle()
       end
     end
@@ -99,7 +112,6 @@ function act486auto.startplugin()
   frame_subscription = emu.add_machine_frame_notifier(function()
 
     if manager.machine.time.seconds > 0 then
-
       fstart = start
 
       for tk, tv in pairs(t) do
@@ -109,9 +121,10 @@ function act486auto.startplugin()
         fstart = fstart + tv[1]
         fend = fstart + tv[2]
 
-        print(frame, fstart, fend, comment)
+        --print(frame, fstart, fend, comment)
         
         if frame == fstart then
+
           -- attach images
           if string.match(tfield, "fd0") then 
             softimg = string.gsub(tfield, "fd0_(.+)", "%1")
@@ -126,6 +139,8 @@ function act486auto.startplugin()
           else
             port = portmap[tfield][1]
             field = portmap[tfield][2]
+
+            print(tfield, port, field)
 
             -- press key
             if rport == false then

@@ -18,6 +18,7 @@ offsets are offset from 0 based on a start delay per machine, `900` for at486 it
 * `stop` and `throttle` are special keywords
 * `fd0_softlist_dev` will insert `flop(n)` into floppy drive 1
 * `cd0_softlist_dev` will insert `cdrom` into cdrom drive 1
+* `import_<file base name>` will preprocess steps from `t_step` table
 
 ## usage
 with a blank chd image of CHS `2048,16,63` (1G) install msdos622
