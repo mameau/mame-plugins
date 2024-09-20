@@ -24,11 +24,11 @@ local function release(port,field)
   manager.machine.ioport.ports[port].fields[field]:clear_value()
 end
 
-local function attach_soft(tag, software)
+local function attach_image(tag, software)
   manager.machine.images[tag]:load_software(software)
 end
 
-local function detach_soft(tag)
+local function detach_image(tag)
   manager.machine.images[tag]:unload()
 end
 
@@ -46,13 +46,18 @@ local function exit()
   manager.machine:exit()
 end
 
+local function draw_hud(frame, fstart, fend, comment)
+  print(frame, fstart, fend, comment)
+  --manager.machine.screens[":isa1:svga_et4k:screen"]:draw_text(200, 3, string.format("%s", frame),  0xffffffff, 0xff000000)
+end
+
 function act486auto.startplugin()
 
   local t = {}
   local frame = 0
   local rport = false
 
-  require('act486auto/portmap')
+  require(exports.name .. '/portmap')
 
   reset_subscription = emu.add_machine_reset_notifier(function()
 
@@ -60,11 +65,11 @@ function act486auto.startplugin()
       if emu.softname() ~= '___empty' then
 
         -- hackeryd00
-        local machscript = 'act486auto/scripts/' .. emu.romname()
+        local machscript = exports.name .. '/scripts/' .. emu.romname()
         local machfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. machscript .. ".lua"
         local machtest = io.open(os.getenv("HOME") .. "/.mame/" .. machfile, "r")
         -- hackeryd00x2
-        local softscript = 'act486auto/scripts/' .. emu.softname()
+        local softscript = exports.name .. '/scripts/' .. emu.softname()
         local softfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. softscript .. ".lua"
         local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
 
@@ -94,7 +99,7 @@ function act486auto.startplugin()
           tfield = tv[3]
           if string.match(tfield, "import_") then
             import = string.gsub(tfield, "import_(.+)", "%1")
-            require("act486auto/scripts/" .. import)
+            require(exports.name .. "/scripts/" .. import)
             table.remove(t, tk)
             for tdk, tdv in pairs(t_step) do
               idx = tk + (tdk - 1)
@@ -107,10 +112,8 @@ function act486auto.startplugin()
     end
   end)
 
-
   -- for i,v in pairs(manager.machine.images) do print(i) end
   frame_subscription = emu.add_machine_frame_notifier(function()
-
     if manager.machine.time.seconds > 0 then
       fstart = start
 
@@ -121,17 +124,18 @@ function act486auto.startplugin()
         fstart = fstart + tv[1]
         fend = fstart + tv[2]
 
-        --print(frame, fstart, fend, comment)
+        draw_hud(frame, fstart, fend, comment)
         
         if frame == fstart then
 
           -- attach images
-          if string.match(tfield, "fd0") then 
-            softimg = string.gsub(tfield, "fd0_(.+)", "%1")
-            if softimg == "eject" then detach_soft(flop1) else attach_soft(flop1, software .. ":" .. softimg) end
-          elseif string.match(tfield, "cd0") then
-            softimg = string.gsub(tfield, "cd0_(.+)", "%1")
-            if softimg == "eject" then detach_soft(cdrom) else attach_soft(cdrom, software .. ":" .. softimg) end
+          if string.match(tfield, "eject_") then
+            softdev = string.gsub(tfield, "eject_(.+)", "%1")
+            detach_image(tags[softdev])
+          elseif string.match(tfield, "attach_") then 
+            softdev = string.gsub(tfield, "attach_(.+)_(.+)", "%1")
+            softimg = string.gsub(tfield, "attach_(.+)_(.+)", "%2")
+            attach_image(tags[softdev], software .. ":" .. softimg)
           elseif string.match(tfield, "throttle") then
             throttle()
           elseif string.match(tfield, "stop") then
@@ -140,7 +144,7 @@ function act486auto.startplugin()
             port = portmap[tfield][1]
             field = portmap[tfield][2]
 
-            print(tfield, port, field)
+            --print(frame, tfield, port, field)
 
             -- press key
             if rport == false then

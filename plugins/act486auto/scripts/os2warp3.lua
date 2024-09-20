@@ -1,21 +1,20 @@
 -- this currently crashes during install, needs more work
-
 software = "os2warp3"
 
-  -- offset, release delay, portmap, comment
 t_software = {
-  { 10, 10, "fd0_flop1", "Insert Installation Disk" },
-  { 2000, 10, "cd0_cdrom1", "Insert CDROM ATAPI" },
-  { 1500, 10, "fd0_flop2", "Insert Diskette 1" },
-  { 10, 10, "ENTER", "" },
-  { 10000, 10, "ENTER", "" },
+  { 10, 10, "attach_flop1_flop1", "Insert Installation Disk" },
+  { 2000, 10, "attach_cdrom1_cdrom1", "Insert CDROM ATAPI" },
+  { 1500, 10, "attach_flop1_flop2", "Insert Diskette 1" },
+  { 10, 10, "KEY_ENTER", "" },
+--  { 6500, 10, "KEY_ENTER", "" },
+  { 6500, 10, "KEY_A", "" },
+  { 20, 10, "KEY_A", "" },
+  { 80, 10, "KEY_F", "" },
+  { 20, 10, "KEY_ENTER", "" },
+  { 5200, 5, "eject_flop1", "Empty Floppy Disk Drive 1" },
+  { 10, 5, "eject_flop2", "Empty Floppy Disk Drive 2" },
+  { 10, 5, "eject_cdrom1", "Empty Floppy Disk Drive" },
+  { 10, 10, "KEY_ENTER", "Installer finised" },
+  { 3000, 10, "throttle", "Throttle" },
+  { 10, 10, "stop", "Exit" },
 }
-
--- board3:ide:ide:0 cdrom            ATAPI CD-ROM
---                  cf               ATA CompactFlash Card
---                  cp2024           Conner Peripherals CP-2024 hard disk
---                  cr589            Matsushita CR589 CD-ROM Drive
---                  hdd              IDE Hard Disk
---                  px320a           PleXCombo PX-320A CD-RW/DVD-ROM Drive
---                  xm3301           Toshiba XM-3301 CD-ROM Drive
---                  zip100           Iomega Zip 100MB IDE Drive
