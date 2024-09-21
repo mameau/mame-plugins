@@ -42,6 +42,22 @@ local function throttle()
 	manager.machine.video.frameskip = 0
 end
 
+local function soft_reset()
+  manager.machine:soft_reset()
+end
+
+local function hard_reset()
+  manager.machine:hard_reset()
+end
+
+local function pause()
+  emu.pause()
+end
+
+local function unpause()
+  emu.unpause()
+end
+
 local function exit()
   manager.machine:exit()
 end
@@ -53,8 +69,9 @@ end
 
 function act486auto.startplugin()
 
-  local t = {}
+  local t
   local frame = 0
+  local fstart
   local rport = false
 
   require(exports.name .. '/portmap')
@@ -63,6 +80,8 @@ function act486auto.startplugin()
 
     if emu.romname() ~= '___empty' then
       if emu.softname() ~= '___empty' then
+
+        t = {}
 
         -- hackeryd00
         local machscript = exports.name .. '/scripts/' .. emu.romname()
@@ -77,8 +96,8 @@ function act486auto.startplugin()
         if machtest then
           io.close(machtest)
           require(machscript)
-          for k,v in pairs(t_machine) do
-            table.insert(t, v)
+          for mk, mv in pairs(t_machine) do
+            table.insert(t, mv)
           end
         else
           print("Unsupported machine")
@@ -89,20 +108,20 @@ function act486auto.startplugin()
         if softtest then
           io.close(softtest)
           require(softscript)
-          for k,v in pairs(t_software) do
-            table.insert(t, v)
+          for sk, sv in pairs(t_software) do
+            table.insert(t, sv)
           end
         end
 
         -- preprocess imports
-        for tk, tv in pairs(t) do
-          tfield = tv[3]
-          if string.match(tfield, "import_") then
-            import = string.gsub(tfield, "import_(.+)", "%1")
+        for itk, itv in pairs(t) do
+          itfield = itv[3]
+          if string.match(itfield, "import_") then
+            import = string.gsub(itfield, "import_(.+)", "%1")
             require(exports.name .. "/scripts/" .. import)
-            table.remove(t, tk)
+            table.remove(t, itk)
             for tdk, tdv in pairs(t_step) do
-              idx = tk + (tdk - 1)
+              idx = itk + (tdk - 1)
               table.insert(t, idx, tdv)
             end
           end
@@ -114,6 +133,7 @@ function act486auto.startplugin()
 
   -- for i,v in pairs(manager.machine.images) do print(i) end
   frame_subscription = emu.add_machine_frame_notifier(function()
+
     if manager.machine.time.seconds > 0 then
       fstart = start
 
@@ -123,7 +143,6 @@ function act486auto.startplugin()
 
         fstart = fstart + tv[1]
         fend = fstart + tv[2]
-
         draw_hud(frame, fstart, fend, comment)
         
         if frame == fstart then
@@ -138,6 +157,12 @@ function act486auto.startplugin()
             attach_image(tags[softdev], software .. ":" .. softimg)
           elseif string.match(tfield, "throttle") then
             throttle()
+          elseif string.match(tfield, "soft_reset") then
+            soft_reset()
+          elseif string.match(tfield, "hard_reset") then
+            hard_reset()
+          elseif string.match(tfield, "pause") then
+            pause()
           elseif string.match(tfield, "stop") then
             exit()
           else
