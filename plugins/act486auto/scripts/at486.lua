@@ -1,5 +1,5 @@
 start = 900
-portmap = "ms_naturl"
+keymap = "ms_naturl"
 
 tags = {
   screen1 = ":isa1:svga_et4k:screen"

@@ -14,6 +14,7 @@ local exports = {
 local act486auto = exports
 local reset_subscription
 local frame_subscription
+local frame = 0
 
 local function split(s, sep)
   local t = {}
@@ -81,15 +82,15 @@ local function exit()
   manager.machine:exit()
 end
 
-local function draw_hud(frame, fstart, fend, comment)
-  print(frame, fstart, fend, comment)
-  --manager.machine.screens[":isa1:svga_et4k:screen"]:draw_text(200, 3, string.format("%s", frame),  0xffffffff, 0xff000000)
+local function draw_hud()
+  frame_str = string.format("%012d", frame)
+  -- print(frame_str)
+  manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0xff000000)
 end
 
 function act486auto.startplugin()
 
   local t
-  local frame = 0
   local fstart
   local rport = false
 
@@ -121,7 +122,7 @@ function act486auto.startplugin()
           exit()
         end
 
-        require(exports.name .. '/portmap/' .. portmap )
+        require(exports.name .. '/portmap/' .. keymap )
 
         -- software script
         if softtest then
@@ -155,6 +156,7 @@ function act486auto.startplugin()
 
     if manager.machine.time.seconds > 0 then
       fstart = start
+      draw_hud(frame)
 
       for tk, tv in pairs(t) do
         tfield = tv[3]
@@ -162,7 +164,6 @@ function act486auto.startplugin()
 
         fstart = fstart + tv[1]
         fend = fstart + tv[2]
-        --draw_hud(frame, fstart, fend, comment)
         
         if frame == fstart then
           -- attach images
@@ -200,9 +201,10 @@ function act486auto.startplugin()
         end
       end
       frame = frame + 1
-    end
-      
+    end      
   end)
+
+  emu.register_frame_done(draw_hud)
 
 end
 

@@ -22,7 +22,7 @@ portmap = {
     ["KEY_EQUALS"] = { ":kbd:ms_naturl:P2.1", "=" },
     -- P2.2
     ["KEY_9"] = { ":kbd:ms_naturl:P2.2", "9" },
-    ["KEY_0"] = { ":kbd:ms_naturl:P2.2", "0" },
+    ["KEY_O"] = { ":kbd:ms_naturl:P2.2", "O" },
     ["KEY_OPENBRACE"] = { ":kbd:ms_naturl:P2.2", "[" },
     ["KEY_L"] = { ":kbd:ms_naturl:P2.2", "L" },
     ["KEY_STOP"] = { ":kbd:ms_naturl:P2.2", "." },

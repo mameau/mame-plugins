@@ -1,5 +1,5 @@
 start = 900
-portmap = "ms_naturl"
+keymap = "ms_naturl"
 
 tags = {
   screen1 = ":isa1:svga_et4k:screen",
@@ -19,7 +19,7 @@ t_machine = {
   { 10, 5, "KEY_RIGHT", "" },
   { 10, 5, "KEY_RIGHT", "" },
   { 10, 5, "KEY_RIGHT", "" },
-  { 100, 5, "import_dev_hdd_500M", "Import HDD Type" },
+  { 100, 5, "import_dev_hdd_1G", "Import HDD Type" },
   { 10, 5, "KEY_RIGHT", "" },
   { 10, 5, "KEY_PGUP", "Configure Floppy Drives" },
   { 10, 5, "import_dev_fd_144", "Import Floppy Drive" },
