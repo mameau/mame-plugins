@@ -1,4 +1,6 @@
 start = 900
+portmap = "ms_naturl"
+
 tags = {
   screen1 = ":isa1:svga_et4k:screen"
   flop1 = ":board1:fdcsmc:fdc:0:35hd"
@@ -26,7 +28,6 @@ t_machine = {
   -- Advanced CMOS Setup
   { 10, 5,  "KEY_DOWN", "" },
   { 20, 10, "KEY_ENTER", "Enter Advanced CMOS Setup" },
-  --
   { 10, 5,  "KEY_DOWN", "" },
   { 10, 5,  "KEY_DOWN", "" },
   { 10, 5,  "KEY_DOWN", "" },

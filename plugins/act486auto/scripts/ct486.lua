@@ -1,4 +1,6 @@
 start = 900
+portmap = "ms_naturl"
+
 tags = {
   screen1 = ":isa1:svga_et4k:screen",
   flop1 = ":board1:fdcsmc:fdc:0:35hd",
@@ -39,8 +41,8 @@ t_machine = {
   { 10, 5,  "KEY_DOWN", "" },
   { 10, 5,  "KEY_DOWN", "" },
   { 10, 5,  "KEY_DOWN", "" },
-  --{ 10, 5,  "KEY_PGUP", "Set Boot Order" },
---  { 10, 5000, "pause", "Pause Emulator"},
+  { 10, 5,  "KEY_PGUP", "Set Boot Order" },
+  --{ 10, 5000, "pause", "Pause Emulator"},
   { 10, 10, "KEY_ESC", "Exit Advanced CMOS Setup" },
   { 10, 5,  "KEY_F10", "Save and Exit" },
   { 10, 5,  "KEY_Y", "" },

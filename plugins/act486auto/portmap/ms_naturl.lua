@@ -13,8 +13,8 @@ portmap = {
     ["KEY_7"] = { ":kbd:ms_naturl:P2.0", "7" },
     -- P2.1
     ["KEY_ENTER"] = { ":kbd:ms_naturl:P2.1", "Enter" },
-    ["KEY_CLOSEBRACE"] = { ":kbd:ms_naturl:P2.1", "\\" },
-    ["KEY_BACKSLASH"] = { ":kbd:ms_naturl:P2.1", "]" },
+    ["KEY_BACKSLASH"] = { ":kbd:ms_naturl:P2.1", "\\" },
+    ["KEY_CLOSEBRACE"] = { ":kbd:ms_naturl:P2.1", "]" },
     ["KEY_LEFT"] = { ":kbd:ms_naturl:P2.1", "Cursor Left" },
     ["KEY_BACKSPACE"] = { ":kbd:ms_naturl:P2.1", "Backspace" },
     ["KEY_F5"] = { ":kbd:ms_naturl:P2.1", "F5" },
@@ -119,7 +119,7 @@ portmap = {
     ["KEY_TAB"] = { ":kbd:ms_naturl:P1.6", "Tab" },
     ["KEY_TILDE"] = { ":kbd:ms_naturl:P1.6", "`" },
     -- P1.7
-    ["KEY_LSHIFT"] = { ":kbd:ms_naturl:P1.6", "Left Shift" },
-    ["KEY_RSHIFT"] = { ":kbd:ms_naturl:P1.6", "Right Shift" },
-    ["KEY_CANCEL"] = { ":kbd:ms_naturl:P1.6", "Break" },
+    ["KEY_LSHIFT"] = { ":kbd:ms_naturl:P1.7", "Left Shift" },
+    ["KEY_RSHIFT"] = { ":kbd:ms_naturl:P1.7", "Right Shift" },
+    ["KEY_CANCEL"] = { ":kbd:ms_naturl:P1.7", "Break" },
   }

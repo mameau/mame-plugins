@@ -15,13 +15,32 @@ local act486auto = exports
 local reset_subscription
 local frame_subscription
 
--- https://www.reddit.com/r/MAME/comments/1aw9h7c/comment/ksow3uj/
-local function press(port,field)
-  manager.machine.ioport.ports[port].fields[field]:set_value(1)
+local function split(s, sep)
+  local t = {}
+  if sep == nil then sep = "," end
+  for str in string.gmatch(s, "([^"..sep.."]+)") do
+    table.insert(t, str)
+  end
+  return t
 end
 
-local function release(port,field)
-  manager.machine.ioport.ports[port].fields[field]:clear_value()
+-- https://www.reddit.com/r/MAME/comments/1aw9h7c/comment/ksow3uj/
+local function press(tfield)
+  for key, value in pairs(split(tfield))
+  do
+    port = portmap[value][1]
+    field = portmap[value][2]
+    manager.machine.ioport.ports[port].fields[field]:set_value(1)
+  end
+end
+
+local function release(tfield)
+  for key, value in pairs(split(tfield))
+  do
+    port = portmap[value][1]
+    field = portmap[value][2]
+    manager.machine.ioport.ports[port].fields[field]:clear_value()
+  end
 end
 
 local function attach_image(tag, software)
@@ -74,8 +93,6 @@ function act486auto.startplugin()
   local fstart
   local rport = false
 
-  require(exports.name .. '/portmap')
-
   reset_subscription = emu.add_machine_reset_notifier(function()
 
     if emu.romname() ~= '___empty' then
@@ -103,6 +120,8 @@ function act486auto.startplugin()
           print("Unsupported machine")
           exit()
         end
+
+        require(exports.name .. '/portmap/' .. portmap )
 
         -- software script
         if softtest then
@@ -143,10 +162,9 @@ function act486auto.startplugin()
 
         fstart = fstart + tv[1]
         fend = fstart + tv[2]
-        draw_hud(frame, fstart, fend, comment)
+        --draw_hud(frame, fstart, fend, comment)
         
         if frame == fstart then
-
           -- attach images
           if string.match(tfield, "eject_") then
             softdev = string.gsub(tfield, "eject_(.+)", "%1")
@@ -166,25 +184,20 @@ function act486auto.startplugin()
           elseif string.match(tfield, "stop") then
             exit()
           else
-            port = portmap[tfield][1]
-            field = portmap[tfield][2]
-
-            --print(frame, tfield, port, field)
-
+            print(frame, tfield, comment)
             -- press key
             if rport == false then
-              press(port,field)
+              press(tfield)
               rport = true
             end
-          end
+          end 
         end
 
         -- release pressed keys
         if rport and frame == fend then
-          release(port,field)
+          release(tfield)
           rport = false
         end
-
       end
       frame = frame + 1
     end
