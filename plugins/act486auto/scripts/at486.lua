@@ -9,7 +9,7 @@ tags = {
   cdrom1 = ":board3:ide:ide:1:cdrom:image"
 }
 
-t_machine = {
+t_step = {
   -- offset, release delay, portmap, comment
   -- Enter Bios
   { 100, 10, "KEY_F1", "Enter Bios" },

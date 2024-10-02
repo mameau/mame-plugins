@@ -1,7 +1,9 @@
 -- this currently crashes during install, needs more work
 software = "os2warp3"
+chd = "import_dev_hdd_1G"
 
 t_software = {
+  { 10, 5, "import_at486", "Import machine" },
   { 10, 10, "attach_flop1_flop1", "Insert Installation Disk" },
   { 2000, 10, "attach_cdrom1_cdrom1", "Insert CDROM ATAPI" },
   { 1500, 10, "attach_flop1_flop2", "Insert Diskette 1" },

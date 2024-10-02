@@ -2,6 +2,7 @@ software = "barbaria"
 
   -- offset, release delay, portmap, comment
 t_software = {
+  { 100, 5, "import_c64", "Import machine" },
   { 10, 5, "attach_flop1_flop1", "" },
   { 10, 5, "KEY_L", "" },
   { 10, 5, "KEY_O", "" },

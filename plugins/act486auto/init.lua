@@ -15,6 +15,7 @@ local act486auto = exports
 local reset_subscription
 local frame_subscription
 local frame = 0
+local offset = 0
 
 local function split(s, sep)
   local t = {}
@@ -83,7 +84,7 @@ local function exit()
 end
 
 local function draw_hud()
-  frame_str = string.format("%012d", frame)
+  frame_str = string.format("F: %08d", frame)
   -- print(frame_str)
   manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0xff000000)
 end
@@ -102,27 +103,9 @@ function act486auto.startplugin()
         t = {}
 
         -- hackeryd00
-        local machscript = exports.name .. '/scripts/' .. emu.romname()
-        local machfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. machscript .. ".lua"
-        local machtest = io.open(os.getenv("HOME") .. "/.mame/" .. machfile, "r")
-        -- hackeryd00x2
-        local softscript = exports.name .. '/scripts/' .. emu.softname()
+        local softscript = exports.name .. '/scripts/software/' .. emu.romname() .. '/' .. emu.softname()
         local softfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. softscript .. ".lua"
         local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
-
-        -- machine script
-        if machtest then
-          io.close(machtest)
-          require(machscript)
-          for mk, mv in pairs(t_machine) do
-            table.insert(t, mv)
-          end
-        else
-          print("Unsupported machine")
-          exit()
-        end
-
-        require(exports.name .. '/portmap/' .. keymap )
 
         -- software script
         if softtest then
@@ -146,6 +129,7 @@ function act486auto.startplugin()
             end
           end
         end
+        require(exports.name .. '/portmap/' .. keymap )
         nothrottle()
       end
     end
@@ -153,10 +137,9 @@ function act486auto.startplugin()
 
   -- for i,v in pairs(manager.machine.images) do print(i) end
   frame_subscription = emu.add_machine_frame_notifier(function()
-
     if manager.machine.time.seconds > 0 then
       fstart = start
-      draw_hud(frame)
+      --draw_hud(frame)
 
       for tk, tv in pairs(t) do
         tfield = tv[3]
@@ -185,7 +168,7 @@ function act486auto.startplugin()
           elseif string.match(tfield, "stop") then
             exit()
           else
-            print(frame, tfield, comment)
+            print(string.format("%s\t%s\t%s", frame, tfield, comment))
             -- press key
             if rport == false then
               press(tfield)

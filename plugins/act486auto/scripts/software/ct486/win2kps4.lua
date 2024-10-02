@@ -1,7 +1,10 @@
+-- mame -w ct486 -nvram_directory /dev/null win2kps4 -flop1 wndws98b -hard1 /mnt/mame-media/media/hdd/test.chd -skip_gameinfo -ramsize 64M -board3:ide:ide:1 cdrom -cdrom1 win2kps4 -uimodekey INSERT -plugins -plugin act486auto
 software = "win2kps4"
 boot = "wndws98b"
+chd = "import_dev_hdd_1G"
 
 t_software = {
+    { 100, 5, "import_ct486", "Import machine" },
     { 1100, 5, "KEY_DOWN", "Boot with CDROM support" },
     { 10, 5, "KEY_ENTER", "" },
     { 3200, 5, "KEY_F", "" },
@@ -52,10 +55,10 @@ t_software = {
     { 100, 5, "KEY_ENTER", "" },
     { 100, 5, "KEY_ENTER", "" },
     { 100, 5, "KEY_ENTER", "" },
-    { 20000, 5, "eject_flop1", "Empty floppy drive" },
+    { 202000, 5, "eject_flop1", "Empty floppy drive" },
     { 100, 5, "KEY_ENTER", "Reboot" },
-    { 5000, 5, "KEY_ENTER", "" },
+    { 10000, 5, "KEY_ENTER", "" },
     { 100, 5, "KEY_F8", "Install" },
     { 100, 5, "KEY_ENTER", "Select Partition" },
-
+    { 100, 5, "KEY_ENTER", "Leave it intact" },
 }
