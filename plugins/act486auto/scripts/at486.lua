@@ -2,11 +2,11 @@ start = 900
 keymap = "ms_naturl"
 
 tags = {
-  screen1 = ":isa1:svga_et4k:screen"
-  flop1 = ":board1:fdcsmc:fdc:0:35hd"
-  flop2 = ":board1:fdcsmc:fdc:1:35hd"
-  hard1 = ":board3:ide:ide:0:hdd:image"
-  cdrom1 = ":board3:ide:ide:1:cdrom:image"
+  screen1 = ":isa1:svga_et4k:screen",
+  flop1 = ":board1:fdcsmc:fdc:0:35hd",
+  flop2 = ":board1:fdcsmc:fdc:1:35hd",
+  hard1 = ":board3:ide:ide:0:hdd:image",
+  cdrom1 = ":board3:ide:ide:1:cdrom:image",
 }
 
 t_step = {
