@@ -105,7 +105,9 @@ function act486auto.startplugin()
         -- hackeryd00
         local softscript = exports.name .. '/scripts/software/' .. emu.romname() .. '/' .. emu.softname()
         local softfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. softscript .. ".lua"
-        local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
+        local homepath = manager.machine.options.entries.homepath:value():match("([^;]+)") .. "/"
+        -- local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
+        local softtest = io.open(homepath .. softfile, "r")
 
         -- software script
         if softtest then
@@ -114,6 +116,9 @@ function act486auto.startplugin()
           for sk, sv in pairs(t_software) do
             table.insert(t, sv)
           end
+        else
+          print("failed to load " .. homepath .. softfile)
+          exit()
         end
 
         -- preprocess imports
