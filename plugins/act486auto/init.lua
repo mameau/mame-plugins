@@ -105,9 +105,15 @@ function act486auto.startplugin()
         -- hackeryd00
         local softscript = exports.name .. '/scripts/software/' .. emu.romname() .. '/' .. emu.softname()
         local softfile = manager.machine.options.entries.pluginspath:value():match("([^;]+)") .. "/" .. softscript .. ".lua"
-        local homepath = manager.machine.options.entries.homepath:value():match("([^;]+)") .. "/"
         -- local softtest = io.open(os.getenv("HOME") .. "/.mame/" .. softfile, "r")
-        local softtest = io.open(homepath .. softfile, "r")
+
+        -- try plugin path directly, if not
+        local softtest = io.open(softfile, "r")
+        if not softtest then
+          -- try to append to homepath
+          local homepath = manager.machine.options.entries.homepath:value():match("([^;]+)") .. "/"
+          softtest = io.open(homepath .. softfile, "r")
+        end
 
         -- software script
         if softtest then
