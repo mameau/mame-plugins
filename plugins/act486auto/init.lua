@@ -16,6 +16,10 @@ local reset_subscription
 local frame_subscription
 local frame = 0
 local offset = 0
+local keys = {}
+
+-- this allowed to be overriden in software.lua
+hud = false
 
 local function split(s, sep)
   local t = {}
@@ -84,9 +88,11 @@ local function exit()
 end
 
 local function draw_hud()
-  frame_str = string.format("F: %08d", frame)
-  -- print(frame_str)
-  manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0xff000000)
+  if hud then
+    frame_str = string.format("F: %08d (%s)", frame, software)
+    -- print(frame_str)
+    manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0xff000000)
+  end
 end
 
 function act486auto.startplugin()
@@ -180,9 +186,19 @@ function act486auto.startplugin()
             exit()
           else
             print(string.format("%s\t%s\t%s", frame, tfield, comment))
-            -- press key
+            -- press key, multiple if required
+            if string.match(tfield,",") then
+              for key in string.gmatch(tfield, "([^,]+)") do
+                table.insert(keys, key)
+              end
+            else
+              table.insert(keys, tfield)
+            end
+
             if rport == false then
-              press(tfield)
+              for i, key in pairs(keys) do
+                press(key)
+              end
               rport = true
             end
           end 
@@ -190,7 +206,10 @@ function act486auto.startplugin()
 
         -- release pressed keys
         if rport and frame == fend then
-          release(tfield)
+          for i, key in pairs(keys) do
+            release(key)
+          end
+          keys = {}
           rport = false
         end
       end
