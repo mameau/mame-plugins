@@ -19,7 +19,7 @@ local offset = 0
 local keys = {}
 
 -- this allowed to be overriden in software.lua
-hud = false
+hud = true
 
 local function split(s, sep)
   local t = {}
@@ -81,6 +81,27 @@ end
 
 local function unpause()
   emu.unpause()
+end
+
+local function cassette(action)
+
+  m = manager.machine
+  for i,v in pairs(m.cassettes) do
+    d = i
+    break
+  end
+
+  if d == nil then
+    emu.print_error("Could not determine cassette device, manual intervention required")
+    throttle()
+  end
+
+  t = m.cassettes[d]
+  
+  if action == "play" then
+   	if not t.is_playing then t:play() end
+  end
+
 end
 
 local function exit()
@@ -174,6 +195,9 @@ function act486auto.startplugin()
             softdev = string.gsub(tfield, "attach_(.+)_(.+)", "%1")
             softimg = string.gsub(tfield, "attach_(.+)_(.+)", "%2")
             attach_image(tags[softdev], software .. ":" .. softimg)
+          elseif string.match(tfield, "cass_") then
+            action = string.gsub(tfield, "cass_(.+)", "%1")
+            cassette(action)
           elseif string.match(tfield, "throttle") then
             throttle()
           elseif string.match(tfield, "soft_reset") then
