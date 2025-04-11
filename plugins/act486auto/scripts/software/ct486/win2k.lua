@@ -1,4 +1,4 @@
--- mame -w ct486 -nvram_directory /dev/null win2kps4 -flop1 wndws98b -hard1 /mnt/mame-media/media/hdd/test.chd -skip_gameinfo -ramsize 64M -board3:ide:ide:1 cdrom -cdrom1 win2kps4 -uimodekey INSERT -plugins -plugin act486auto
+-- ./mame -w ct486 -nvram_directory /dev/null win2k -flop1 wndws98b -hard1 harddisk/win2kps4.chd -skip_gameinfo -ramsize 64M -board3:ide:ide:1 cdrom -cdrom1 win2k -plugins -plugin act486auto
 software = "win2k"
 chd = "import_dev_hdd_1G"
 
@@ -12,10 +12,10 @@ t_software = {
     { 11800, 10, "attach_flop1_flop4", "" },
     { 100, 5, "KEY_ENTER", "Disk4" },
     { 13000, 10,"KEY_ENTER", "Start Install" },
-    { 100, 5, "KEY_F8", "Agree to terms" },
+    { 300, 5, "KEY_F8", "Agree to terms" },
     { 100, 5, "KEY_ENTER", "Format Disk" },
     { 100, 5, "KEY_ENTER", "NTFS" },
-    { 170000, 10,"KEY_ENTER", "Start Install" },
+    { 170000, 10,"KEY_ENTER", "" },
     -- { 17000, 10,"attach_flop1_flop5", "" },
     -- { 100, 5, "KEY_ENTER", "Disk5" },
     -- { 17000, 10, "attach_flop1_flop6", "" },

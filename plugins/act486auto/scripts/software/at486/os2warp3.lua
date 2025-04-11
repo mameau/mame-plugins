@@ -10,31 +10,14 @@ t_software = {
   { 10, 10, "KEY_ENTER", "" },
 --  { 6500, 10, "KEY_E", "Easy Installation" },
   { 6500, 10, "KEY_A", "Advanced Installation" },
-  { 30, 10, "KEY_A", "" },
-  -- Enter Select Partition
-  -- Enter Open Menu
-  -- B Install Boot Manager
-  -- DOWN Select Unformatted Spaces
-  -- Enter Open Menu
-  -- C Create Partition
-  -- Enter Partition Size
-  -- P Create Primary Partition
-  -- 
---  { 20, 10, "KEY_A", "" },
---  { 80, 10, "KEY_F", "" },
---  { 20, 5, "KEY_ENTER", "" },
-  { 50, 5, "eject_flop1", "Empty Floppy Disk Drive 1" },
-  { 10, 5, "eject_flop2", "Empty Floppy Disk Drive 2" },
-  { 20, 10, "soft_reset", "" },
-  { 10, 10, "throttle", "Throttle" },
---  { 20, 10, "attach_flop1_flop1", "Insert Installation Disk" },
---  { 150, 10, "throttle", "Throttle" },
---  { 3500, 10, "attach_flop1_flop2", "Insert Diskette 1" },
---  { 10, 10, "KEY_ENTER", "" },
---  { 5200, 5, "eject_flop1", "Empty Floppy Disk Drive 1" },
---  { 10, 5, "eject_flop2", "Empty Floppy Disk Drive 2" },
---  { 10, 5, "eject_cdrom1", "Empty Floppy Disk Drive" },
---  { 10, 10, "KEY_ENTER", "Installer finised" },
---  { 3000, 10, "throttle", "Throttle" },
---  { 10, 10, "stop", "Exit" },
+  { 100, 10, "KEY_ENTER", "HPFS" },
+  { 5600, 5, "eject_flop1", "Empty Floppy Disk Drive 1" },
+  { 100, 10, "KEY_ENTER", "Restart after install" },
+  { 3700, 10, "KEY_LALT,KEY_O", "Continue Install" },
+  { 300, 10, "KEY_LALT,KEY_O", "" },
+  { 300, 10, "KEY_LALT,KEY_I", "" },
+  { 300, 10, "KEY_LALT,KEY_O", "" },
+  { 21000, 10, "KEY_TAB,KEY_ENTER", "" },
+  { 10, 10, "reset", "" },
+  { 900, 10, "throttle", "Throttle for boot" },
 }

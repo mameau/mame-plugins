@@ -115,7 +115,7 @@ end
 
 local function draw_hud()
   if hud then
-    frame_str = string.format("Software: %s\nFrame: %08d\nLast:\n Passed: %08d\n Action: %s\n Comment:%s", software, frame, offset, ltfield, lcomment)
+    frame_str = string.format("Software: %s\nFrame: %08d\nLast:\n Passed: %08d\n Action: %s\n Comment: %s", software, frame, offset, ltfield, lcomment)
     -- print(frame_str)
     manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0x00000000)
   end
@@ -212,7 +212,7 @@ function act486auto.startplugin()
           elseif string.match(tfield, "stop") then
             exit()
           else
-            print(string.format("%s\t%s\t%s", frame, tfield, comment))
+            -- print(string.format("%s\t%s\t%s", frame, tfield, comment))
             -- press key, multiple if required
             if string.match(tfield,",") then
               for key in string.gmatch(tfield, "([^,]+)") do
