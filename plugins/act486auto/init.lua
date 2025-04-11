@@ -15,10 +15,15 @@ local act486auto = exports
 local reset_subscription
 local frame_subscription
 local frame = 0
+local lframe = 0
+local fstart = 0
+local fend = 0
 local offset = 0
 local keys = {}
+local lcomment = "None"
+local ltfield = 0
 
--- this allowed to be overriden in software.lua
+-- allowed to be overriden in software.lua
 hud = true
 
 local function split(s, sep)
@@ -110,16 +115,15 @@ end
 
 local function draw_hud()
   if hud then
-    frame_str = string.format("F: %08d (%s)", frame, software)
+    frame_str = string.format("Software: %s\nFrame: %08d\nLast:\n Passed: %08d\n Action: %s\n Comment:%s", software, frame, offset, ltfield, lcomment)
     -- print(frame_str)
-    manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0xff000000)
+    manager.machine.render.ui_container:draw_text('left', 0, frame_str, 0xffffffff, 0x00000000)
   end
 end
 
 function act486auto.startplugin()
 
   local t
-  local fstart
   local rport = false
 
   reset_subscription = emu.add_machine_reset_notifier(function()
@@ -178,7 +182,6 @@ function act486auto.startplugin()
     if manager.machine.time.seconds > 0 then
       fstart = start
       --draw_hud(frame)
-
       for tk, tv in pairs(t) do
         tfield = tv[3]
         comment = tv[4]
@@ -235,10 +238,18 @@ function act486auto.startplugin()
           end
           keys = {}
           rport = false
+          if comment == "" then
+            lcomment = "None"
+          else
+            lcomment = comment
+          end
+          ltfield = tfield
+          lframe = frame
         end
       end
       frame = frame + 1
-    end      
+      offset = frame - lframe
+    end
   end)
 
   emu.register_frame_done(draw_hud)
