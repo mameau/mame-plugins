@@ -12,44 +12,44 @@ tags = {
 t_step = {
   -- offset, release delay, portmap, comment
   -- Enter Bios
-  { 100, 10, "KEY_F1", "Enter Bios" },
+  { 100, 10, "KEYCODE_F1", "Enter Bios" },
   -- Standard CMOS Setup
-  { 100, 90, "KEY_ENTER", "Standard CMOS Setup" },
+  { 100, 90, "KEYCODE_ENTER", "Standard CMOS Setup" },
   { 100, 5, "import_dev_hdd_1G", "Import HDD Type" },
   -- Floppies
-  { 10, 5, "KEY_DOWN", "Configure Floppy Drives" },
+  { 10, 5, "KEYCODE_DOWN", "Configure Floppy Drives" },
   ---- Drive A
   { 10, 5, "import_dev_fd_144", "Import Floppy Drive" },
   ---- Drive B
   { 10, 5, "import_dev_fd_144", "Import Floppy Drive" },
   -- Exit Standard CMOS Setup
-  { 10, 10, "KEY_ESC", "Exit Standard CMOS Setup" },
+  { 10, 10, "KEYCODE_ESC", "Exit Standard CMOS Setup" },
 
   -- Advanced CMOS Setup
-  { 10, 5,  "KEY_DOWN", "" },
-  { 20, 10, "KEY_ENTER", "Enter Advanced CMOS Setup" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
-  { 10, 5,  "KEY_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 20, 10, "KEYCODE_ENTER", "Enter Advanced CMOS Setup" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
+  { 10, 5,  "KEYCODE_DOWN", "" },
   -- Boot Order
-  { 10, 5,  "KEY_PGUP", "Set Boot Order" },
+  { 10, 5,  "KEYCODE_PGUP", "Set Boot Order" },
   -- Exit Advanced CMOS Setup
-  { 10, 10, "KEY_ESC", "Exit Advanced CMOS Setup" },
+  { 10, 10, "KEYCODE_ESC", "Exit Advanced CMOS Setup" },
 
   -- Save and Exit
-  { 10, 5,  "KEY_F10", "Save and Exit" },
-  { 10, 5,  "KEY_Y", "" },
-  { 10, 10, "KEY_ENTER", "" },
+  { 10, 5,  "KEYCODE_F10", "Save and Exit" },
+  { 10, 5,  "KEYCODE_Y", "" },
+  { 10, 10, "KEYCODE_ENTER", "" },
 }
 
 -- board3:ide:ide:0 cdrom            ATAPI CD-ROM
