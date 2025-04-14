@@ -10,11 +10,11 @@ local exports = {
 	license = 'BSD-3-Clause',
 	author = { name = 'sairuk' } }
 
-local act486auto = exports
+local act486rec = exports
 local reset_subscription
 local frame_subscription
 
-function act486auto.startplugin()
+function act486rec.startplugin()
 
   local t = {}
   local frame = 0

@@ -1,0 +1,10 @@
+{
+	"plugin": {
+		"name": "act486keyb",
+		"description": "[ac]t486 generate keymap",
+		"version": "0.0.1",
+		"author": "sairuk",
+		"type": "plugin",
+		"start": "false"
+	}
+}
