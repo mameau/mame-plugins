@@ -9,7 +9,7 @@ t_software = {
   { 10, 5, "KEYCODE_A", "" },
   { 10, 5, "KEYCODE_D", "" },
   { 10, 5, "KEYCODE_LSHIFT,KEYCODE_2", "" },
-  { 10, 5, "KEYCODE_ASTERIX", "" },
+  { 10, 5, "KEYCODE_CLOSEBRACE", "*" },
   { 10, 5, "KEYCODE_LSHIFT,KEYCODE_2", "" },
   { 10, 5, "KEYCODE_COMMA", "" },
   { 10, 5, "KEYCODE_8", "" },
