@@ -52,11 +52,3 @@ t_step = {
   { 10, 10, "KEYCODE_ENTER", "" },
 }
 
--- board3:ide:ide:0 cdrom            ATAPI CD-ROM
---                  cf               ATA CompactFlash Card
---                  cp2024           Conner Peripherals CP-2024 hard disk
---                  cr589            Matsushita CR589 CD-ROM Drive
---                  hdd              IDE Hard Disk
---                  px320a           PleXCombo PX-320A CD-RW/DVD-ROM Drive
---                  xm3301           Toshiba XM-3301 CD-ROM Drive
---                  zip100           Iomega Zip 100MB IDE Drive

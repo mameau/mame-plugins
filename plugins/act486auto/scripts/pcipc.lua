@@ -1,7 +1,13 @@
-start = 900
+start = 800
 keymap = "at_keyboard"
 
-tags = {}
+tags = {
+  screen1 = ":pci:4:virge:screen",
+  flop1 = ":board4:fdc37c93x:fdc:0:35hd",
+  flop2 = ":board4:fdc37c93x:fdc:1:35hd",
+  hard1 = ":pci:07.1:ide1:0:hdd:image",
+  cdrom1 = ":pci:07.1:ide2:0:cdrom:image",
+}
 
 t_step = {
   -- offset, release delay, portmap, comment
