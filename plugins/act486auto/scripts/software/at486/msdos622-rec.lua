@@ -4,12 +4,12 @@ chd = "import_dev_hdd_1G"
 keymap = "ms_naturl"
 machine = "at486"
 
-tags = {                                                                        
-  screen1 = ":isa1:svga_et4k:screen",                                           
-  flop1 = ":board1:fdcsmc:fdc:0:35hd",                                          
-  flop2 = ":board1:fdcsmc:fdc:1:35hd",                                          
-  hard1 = ":board3:ide:ide:0:hdd:image",                                        
-  cdrom1 = ":board3:ide:ide:1:cdrom:image",                                     
+tags = { 
+  screen1 = ":isa1:svga_et4k:screen",
+  flop1 = ":board1:fdcsmc:fdc:0:35hd",
+  flop2 = ":board1:fdcsmc:fdc:1:35hd",
+  hard1 = ":board3:ide:ide:0:hdd:image",
+  cdrom1 = ":board3:ide:ide:1:cdrom:image",
 }   
 
   -- offset, release delay, portmap, comment
