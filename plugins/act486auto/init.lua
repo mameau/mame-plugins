@@ -29,29 +29,25 @@ hud = true
 local function split(s, sep)
   local t = {}
   if sep == nil then sep = "," end
+  idx = 1
   for str in string.gmatch(s, "([^"..sep.."]+)") do
-    table.insert(t, str)
+    t[idx] = str
+    idx = idx + 1
   end
   return t
 end
 
 -- https://www.reddit.com/r/MAME/comments/1aw9h7c/comment/ksow3uj/
 local function press(tfield)
-  for key, value in pairs(split(tfield))
-  do
-    port = portmap[value][1]
-    field = portmap[value][2]
-    manager.machine.ioport.ports[port].fields[field]:set_value(1)
-  end
+  port = portmap[tfield][1]
+  field = portmap[tfield][2]
+  manager.machine.ioport.ports[port].fields[field]:set_value(1)
 end
 
 local function release(tfield)
-  for key, value in pairs(split(tfield))
-  do
-    port = portmap[value][1]
-    field = portmap[value][2]
-    manager.machine.ioport.ports[port].fields[field]:clear_value()
-  end
+  port = portmap[tfield][1]
+  field = portmap[tfield][2]
+  manager.machine.ioport.ports[port].fields[field]:clear_value()
 end
 
 local function attach_image(tag, software)
@@ -214,16 +210,11 @@ function act486auto.startplugin()
           else
             -- print(string.format("%s\t%s\t%s", frame, tfield, comment))
             -- press key, multiple if required
-            if string.match(tfield,",") then
-              for key in string.gmatch(tfield, "([^,]+)") do
-                table.insert(keys, key)
-              end
-            else
-              table.insert(keys, tfield)
-            end
+            keys = split(tfield)
 
             if rport == false then
-              for i, key in pairs(keys) do
+              skip_frames = frame
+              for i, key in ipairs(keys) do
                 press(key)
               end
               rport = true
@@ -233,7 +224,7 @@ function act486auto.startplugin()
 
         -- release pressed keys
         if rport and frame == fend then
-          for i, key in pairs(keys) do
+          for i, key in ipairs(keys) do
             release(key)
           end
           keys = {}

@@ -1,0 +1,55 @@
+software = "geos20"
+chd = "import_dev_hdd_1G"
+
+-- NOTES
+-- requires chd with msdos pre-installed
+-- installer interface does not accept down arrow presses from ioport
+
+t_software = {
+  -- GEOS 2.0 Ensemble
+  { 10, 5, "import_at486", "Import machine" },
+  { 10, 10, "attach_flop1_flop1", "Insert Floppy Disk 1" },
+  { 3000, 5, "KEYCODE_A", "" },
+  { 20, 10, "KEYCODE_LSHIFT,KEYCODE_COLON", "" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 95, 5, "KEYCODE_I", "" },
+  { 10, 10, "KEYCODE_N", "" },
+  { 10, 5, "KEYCODE_S", "" },
+  { 10, 5, "KEYCODE_T", "" },
+  { 10, 5, "KEYCODE_A", "" },
+  { 10, 5, "KEYCODE_L", "" },
+  { 10, 5, "KEYCODE_L", "" },
+  { 10, 5, "KEYCODE_ENTER", "" },
+  { 800, 20, "KEYCODE_DOWN", "" },
+  { 13, 20, "KEYCODE_DOWN", "" },
+  { 43, 10, "KEYCODE_ENTER", "" },
+  { 79, 10, "KEYCODE_ENTER", "" },
+  { 61, 10, "KEYCODE_ENTER", "" },
+  { 5000, 5, "attach_flop1_flop2", "Insert Floppy Disk 2" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 5300, 5, "attach_flop1_flop3", "Insert Floppy Disk 3" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 320, 5, "attach_flop1_flop2", "Insert Floppy Disk 2" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 320, 5, "attach_flop1_flop3", "Insert Floppy Disk 3" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 5000, 5, "attach_flop1_flop4", "Insert Floppy Disk 4" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 5000, 5, "attach_flop1_flop5", "Insert Floppy Disk 5" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 250, 5, "attach_flop1_flop4", "Insert Floppy Disk 4" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 250, 5, "attach_flop1_flop5", "Insert Floppy Disk 5" },
+  { 10, 10, "KEYCODE_ENTER", "" },
+  { 523, 5, "KEYCODE_ENTER", "" },
+  { 164, 5, "KEYCODE_Y", "" },
+  { 270, 5, "KEYCODE_ENTER", "" },
+  { 85, 5, "KEYCODE_Y", "" },
+  { 250, 5, "KEYCODE_ENTER", "" },
+  { 183, 5, "KEYCODE_N", "" },
+  { 269, 5, "KEYCODE_N", "" },
+  { 65, 5, "KEYCODE_ENTER", "" },
+  { 74, 5, "KEYCODE_ENTER", "" },
+  { 500, 5, "eject_flop1", "Empty Floppy Disk Drive" },
+  { 10, 10, "stop", "Exit" },
+}
