@@ -1,0 +1,36 @@
+software = "freedos13_144"
+chd = "import_dev_hdd_1G"
+
+-- offset, release de\lay, portmap, comment
+t_software = {
+  { 10, 5, "import_pcipc", "Import machine" },
+  { 1000, 5, "KEYCODE_1", "English" },
+  { 4320, 5, "KEYCODE_Y", "Partition" },
+  { 10, 5, "KEYCODE_ENTER", "Confirm Partition" },
+  { 3000, 5, "KEYCODE_Y", "Reboot" },
+  { 50, 5, "KEYCODE_ENTER", "Confirm Reboot" },
+  { 100, 5, "soft_reset", "additional reset for pcipc misbehaviour" },
+  { 1000, 5, "KEYCODE_1", "English" },
+  { 4320, 5, "KEYCODE_Y", "Proceed" },
+  { 10, 5, "KEYCODE_ENTER", "Confirm Proceed" },
+  { 1180, 5, "KEYCODE_Y", "Format" },
+  { 40, 5, "KEYCODE_ENTER", "Confirm Format" },
+  { 12500, 5, "KEYCODE_Y", "Proceed with Install" },
+  { 10, 5, "KEYCODE_ENTER", "Confirm Install" },
+  { 20000, 10, "attach_flop1_flop2", "Insert Floppy Disk 2" },
+  { 10, 5, "KEYCODE_ENTER", "Read Floppy Disk 2" },
+  { 9000, 10, "attach_flop1_flop3", "Insert Floppy Disk 3" },
+  { 10, 5, "KEYCODE_ENTER", "Read Floppy Disk 3" },
+  { 14000, 10, "attach_flop1_flop4", "Insert Floppy Disk 4" },
+  { 10, 5, "KEYCODE_ENTER", "Read Floppy Disk 4" },
+  { 13100, 10, "attach_flop1_flop5", "Insert Floppy Disk 5" },
+  { 10, 5, "KEYCODE_ENTER", "Read Floppy Disk 5" },
+  { 20700, 10, "attach_flop1_flop6", "Insert Floppy Disk 6" },
+  { 10, 5, "KEYCODE_ENTER", "Read Floppy Disk 6" },
+  { 20715, 5, "KEYCODE_Y", "" },
+  { 44, 5, "KEYCODE_ENTERPAD", "" },
+  { 10, 10, "eject_flop1", "Eject flop1" },
+  { 100, 5, "soft_reset", "additional reset for pcipc misbehaviour" },
+  { 2000, 5, "throttle", "" },
+  { 10, 10, "stop", "End Install" },
+}

@@ -12,7 +12,7 @@ tags = {
 t_step = {
   -- offset, release delay, portmap, comment
   -- Enter Bios
-  { 100, 10, "KEYCODE_F2", "Enter Bios" },
+  { 0, 10, "KEYCODE_F2", "Enter Bios" },
   -- Floppies
   { 10, 5, "KEYCODE_DOWN", "Configure Floppy Drives" },
   { 10, 5, "KEYCODE_DOWN", "" },

@@ -3,7 +3,7 @@ software = "bldrdash"
 
   -- offset, release delay, portmap, comment
 t_software = {
-  { 100, 5, "import_c64", "Import machine" },
+  { 100, 5, "import_c64p", "Import machine" },
   { 10, 5, "attach_flop1_flop1", "" },
   { 10, 5, "KEYCODE_L", "" },
   { 10, 5, "KEYCODE_O", "" },

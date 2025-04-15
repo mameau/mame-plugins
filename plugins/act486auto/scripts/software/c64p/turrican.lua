@@ -4,7 +4,7 @@ software = "turrican"
   -- we dont call attach for a cassette
 
 t_software = {
-  { 100, 5, "import_c64", "Import machine" },
+  { 100, 5, "import_c64p", "Import machine" },
   { 10, 5, "KEYCODE_L", "" },
   { 10, 5, "KEYCODE_O", "" },
   { 10, 5, "KEYCODE_A", "" },
